@@ -5,7 +5,8 @@ The Pico 2 has 26 GPIO pins.
 
 ![pico2](./pico2pinout.jpg)
 
-The outpu
+The output of the OpAmp must connect to pin 26, 27, or 28. These pins expose the Pico's ADC.
+The remaining pins are for the (DE)MUX select pins.
 
 Features to implement:
 - Configuration File with Pins to choose/disable

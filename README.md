@@ -12,16 +12,16 @@ The remaining pins are for the (DE)MUX select pins.
 
 # User's Guide:
 
-# Guide for the unfortunate undergrad/grad who has to modify this software:
+## Guide for the unfortunate undergrad/grad who has to modify this software:
 
-## Setup:
+### Setup:
 
 If you know what you're doing, you can ignore this section.
 
 To setup the programming environement, youu must clone the repo, create a python virtual environment, and install the required packages. This code was written in ``Python 3.11.7``.
 Then, install the required addons in VSCode.
 
-### Detailed instructions on these steps:
+#### Detailed instructions on these steps:
 
 Run the command to clone the repo:
 

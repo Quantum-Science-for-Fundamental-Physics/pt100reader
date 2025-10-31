@@ -17,7 +17,7 @@ We use the enable pin to select which demux we wish to use, and then the select 
 
 Each demux needs 4 GPIO pins, and we need 1 GPIO pin to read the temperature signal from the OpAmp. Thus, we have a maximum of 6 3:8 demuxes per Pico (without daisy chaining). This should be suitable. 
 
-![demux](./documentation/images/demuxPinout.jpg)
+![demux](./documentation/images/demuxPinout.png)
 
 # User's Guide:
 

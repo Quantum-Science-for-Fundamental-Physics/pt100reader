@@ -8,7 +8,11 @@ The Pico 2 has 26 GPIO pins.
 ![pico2](./pico2pinout.jpg)
 
 The output of the OpAmp must connect to pin 26, 27, or 28. These pins expose the Pico's ADC.
-The remaining pins are for the (DE)MUX select pins.
+The remaining pins are for the (de)mux select pins.
+
+Each 8 channel multiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, 11. The enable line on the SN74LV4051AN is pin 6.
+
+![demux](./images/SN74LV4051Apinout.jpg)
 
 # User's Guide:
 
@@ -21,7 +25,6 @@ If you know what you're doing, you can ignore this section.
 If you aren't using linux, you should really consider using linux. I will do my best to describe the process for windows, but I am not developing on windows.
 
 To setup the programming environement, youu must clone the repo, create a python virtual environment, and install the required packages. This code was written in ``Python 3.11.7``.
-Then, install the required addons in VSCode.
 
 #### Installing/configuring the programming environment:
 

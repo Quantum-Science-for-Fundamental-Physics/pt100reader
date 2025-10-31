@@ -31,6 +31,10 @@ First, make sure you're running ``Python 3.11.7``. If you don't have it on your 
 
    ``python3.11.7 -m venv pt100``.
 
+Then activate the virtual environement with
+
+   ``source ./pt100/bin/activate``.
+
 Second, you need to install packages. This is done with
 
    ``pip install -r requirements.txt``.

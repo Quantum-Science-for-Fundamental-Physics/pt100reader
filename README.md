@@ -10,7 +10,7 @@ The Pico 2 has 26 GPIO pins.
 The output of the OpAmp must connect to pin 26, 27, or 28. These pins expose the Pico's ADC.
 The remaining pins are for the (de)mux select pins.
 
-Each 8 channel demultiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, and 11 (A, B, and C respectively). The enable pin on the SN74LV4051AN is pin 6 (INH). Pin 3 (COM) of the SN74LV4051AN is where the current controlled output of the LM317 should connect to.
+Each 8 channel demultiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, and 11 (A, B, and C, respectively). The enable pin on the SN74LV4051AN is pin 6 (INH). Pin 3 (COM) of the SN74LV4051AN is where the current controlled output of the LM317 should connect to.
 The select lines encode which output pin to enable (Y0, ..., Y7) in binary. When the enable pin is HIGH, it sets all outputs of the demux LOW.
 
 We use the enable pin to select which demux we wish to use, and then the select lines for that demux to choose which output of that demux we wish to use.

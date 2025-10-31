@@ -39,9 +39,9 @@ class controllerBoard:
         
         #Make sure no demux is active before activating one
         for demux in self.__demuxes:
-            demux.value(0)
+            demux.value(1)
         
-        self.__demuxes[demux_index].value(1)
+        self.__demuxes[demux_index].value(0)
     
     def select_channel(self, channel):
         """
@@ -64,18 +64,18 @@ class controllerBoard:
     def __getitem__(self, index):
 
         #Select correct demux
-        self.select_demux(self.sensorAddress[index % 7][0])
+        self.select_demux(self.sensorAddress[index % 8][0])
 
-        #Select correct channel
-        self.select_channel(self.sensorAddress[index][1])
+        #elect correct channel
+        self.select_channel(self.sensorAddress[index % 8][1])
 
         #Wait for voltage to stabilize
-        utime.sleep(1)
+        utime.sleep(0.1)
 
         #Read input
         input = self.read_value()
 
-        print(f"input read: temp sensor #{index}")
+        print(f"Reading temp sensor #{index}.")
               
         return input
 
@@ -89,7 +89,7 @@ def main():
     while(True):
         print(f"Input Value: {tempSensors[i]}")
         i += 1
-        i = i % 7
+        i = i % 8
 
 if __name__ == "__main__":
     main()

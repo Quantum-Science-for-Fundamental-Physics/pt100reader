@@ -5,14 +5,19 @@ Code to use a Raspberry Pico 2 as a PT100 multiplexer.
 
 The Pico 2 has 26 GPIO pins.
 
-![pico2](./pico2pinout.jpg)
+![pico2](./documentation/images/pico2pinout.jpg)
 
 The output of the OpAmp must connect to pin 26, 27, or 28. These pins expose the Pico's ADC.
 The remaining pins are for the (de)mux select pins.
 
-Each 8 channel multiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, 11. The enable line on the SN74LV4051AN is pin 6.
+Each 8 channel demultiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, and 11 (A, B, and C respectively). The enable pin on the SN74LV4051AN is pin 6 (INH). Pin 3 (COM) of the SN74LV4051AN is where the current controlled output of the LM317 should connect to.
+The select lines encode which output pin to enable (Y0, ..., Y7) in binary. When the enable pin is HIGH, it sets all outputs of the demux LOW.
 
-![demux](./images/SN74LV4051Apinout.jpg)
+We use the enable pin to select which demux we wish to use, and then the select lines for that demux to choose which output of that demux we wish to use.
+
+Each demux needs 4 GPIO pins, and we need 1 GPIO pin to read the temperature signal from the OpAmp. Thus, we have a maximum of 6 3:8 demuxes per Pico (without daisy chaining). This should be suitable. 
+
+![demux](./documentation/images/demuxPinout.jpg)
 
 # User's Guide:
 

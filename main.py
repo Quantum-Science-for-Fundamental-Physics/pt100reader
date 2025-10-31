@@ -1,4 +1,5 @@
 from machine import ADC, Pin
+import utime
 
 #OpAmp output Pin. Pin 26, 27, or 28.
 ADC_PIN = 26
@@ -27,13 +28,20 @@ class controllerBoard:
         for demux in demuxes:
             self.__demuxes.append(Pin(demux, Pin.OUT))
 
+        #Temp sensors are selected by commanding E, A, B, C. 
+
+        self.sensorAddress = []
+        for i in range(len(self.__demuxes)):
+            for j in range(8):
+                self.sensorAddress.append([i, j])
+
     def select_demux(self, demux_index):
         
         #Make sure no demux is active before activating one
-        for demux in self.demuxes:
+        for demux in self.__demuxes:
             demux.value(0)
         
-        self.demuxes[demux_index].value(1)
+        self.__demuxes[demux_index].value(1)
     
     def select_channel(self, channel):
         """
@@ -53,27 +61,35 @@ class controllerBoard:
         return self.__adcPin.read_u16()
     
 
-    def _getitem__(self, index):
+    def __getitem__(self, index):
 
         #Select correct demux
+        self.select_demux(self.sensorAddress[index % 7][0])
 
         #Select correct channel
+        self.select_channel(self.sensorAddress[index][1])
 
         #Wait for voltage to stabilize
+        utime.sleep(1)
 
         #Read input
+        input = self.read_value()
 
-        #Return
-
+        print(f"input read: temp sensor #{index}")
+              
+        return input
 
 def main():
     print("Hello world from pico 2!")
     DEMUXES = [DEMUX_0]
 
     tempSensors = controllerBoard(SELECT, DEMUXES, ADC_PIN)
-    print(tempSensors)
-    print(tempSensors.demuxes)
-    #print(tempSensors[0])
+
+    i = 0
+    while(True):
+        print(f"Input Value: {tempSensors[i]}")
+        i += 1
+        i = i % 7
 
 if __name__ == "__main__":
     main()

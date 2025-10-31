@@ -21,7 +21,7 @@ Each demux needs 4 GPIO pins, and we need 1 GPIO pin to read the temperature sig
 
 # User's Guide:
 
-## Guide for the unfortunate undergrad/grad who has to modify this software:
+## Dev Guide:
 
 ### Setup:
 

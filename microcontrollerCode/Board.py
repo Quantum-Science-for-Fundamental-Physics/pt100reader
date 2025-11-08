@@ -5,6 +5,7 @@ import math
 import json
 
 CHANNELS = 8
+MEASUREMENTS_PER_MEASUREMENT = 1000
 
 class controllerBoard:
     def __init__(self, select, demuxes, adcPin):
@@ -58,9 +59,9 @@ class controllerBoard:
     
     def take_measurement(self):
         temps = 0
-        for i in range(500):
+        for i in range(MEASUREMENTS_PER_MEASUREMENT):
             temps += self.read_value()
-        return temps / 500
+        return temps / MEASUREMENTS_PER_MEASUREMENT
 
     def __getitem__(self, index):
 

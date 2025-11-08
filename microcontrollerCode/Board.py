@@ -5,7 +5,7 @@ import math
 import json
 
 CHANNELS = 8
-MEASUREMENTS_PER_MEASUREMENT = 1000
+MEASUREMENTS_PER_MEASUREMENT = 500
 
 class controllerBoard:
     def __init__(self, select, demuxes, adcPin):

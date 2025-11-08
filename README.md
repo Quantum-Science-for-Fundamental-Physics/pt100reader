@@ -1,7 +1,13 @@
 # pt100reader
 Code to use a Raspberry Pico 2 as a PT100 multiplexer.
 
-# Basic Information:
+# User's Guide:
+
+## Software Installation:
+
+
+
+## Hardware Information:
 
 The Pico 2 has 26 GPIO pins.
 
@@ -10,16 +16,14 @@ The Pico 2 has 26 GPIO pins.
 The output of the OpAmp must connect to pin 26, 27, or 28. These pins expose the Pico's ADC.
 The remaining pins are for the (de)mux select pins.
 
-Each 8 channel demultiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, and 11 (A, B, and C, respectively). The enable pin on the SN74LV4051AN is pin 6 (INH). Pin 3 (COM) of the SN74LV4051AN is where the current controlled output of the LM317 should connect to.
+Each 8 channel demultiplexer has 3 select lines and 1 enable line. The select lines on the SN74LV4051AN are pins 9, 10, and 11 (A, B, and C, respective>
 The select lines encode which output pin to enable (Y0, ..., Y7) in binary. When the enable pin is HIGH, it sets all outputs of the demux LOW.
 
-We use the enable pin to select which demux we wish to use, and then the select lines for that demux to choose which output of that demux we wish to use.
+We use the enable pin to select which demux we wish to use, and then the select lines for that demux to choose which output of that demux we wish to us>
 
-Each demux needs 4 GPIO pins, and we need 1 GPIO pin to read the temperature signal from the OpAmp. Thus, we have a maximum of 6 3:8 demuxes per Pico (without daisy chaining). This should be suitable. 
+Each demux needs 1 GPIO pin (enable/INH), we need 3 GPIO pins for the multiplexers' select lines, and we need 1 GPIO pin to read the temperature signal>
 
 ![demux](./documentation/images/demuxPinout.png)
-
-# User's Guide:
 
 ## Dev Guide:
 
@@ -74,10 +78,28 @@ If you don't see a Pico appear in this list, you might have forgotten to install
 
 
 Features to implement:
-- Configuration File with Pins to choose/disable
-- Configuration GUI with Pinout of Pico
-- Real time graph
-- Save data locally
-- Save data on dedicated database (Lab Pi)
-
-Features implemented:
+- Codebase
+	- Constant Formatting + Naming
+	- One file with literals?
+	- Review import best practices
+- Functional
+	- Display actual temp, not 16-bit adc input
+	- interpolation/smoothing/noise reduction
+- GUI Aesthetic
+	- Colors (orange/blue) graphs, shading under curve
+	- darkmode
+- Settings
+	- Settings config file in dedicated folder
+	- Choose which sensors' graphs to display 
+	- Map of sensors on model of experiment
+	- Sensor calibration settings
+		- method to calibrate sensor based on others
+	- Color/theme option
+- Save Data
+	- Save data as spreadsheet in dedicated data folder
+	- Choose name of data spreadsheet + auto generate one based on date + time
+	- Save data on dedicated database (Lab Pi)
+- GUI Mechanics
+	- Allow ablity to click to select graph, mouse wheel to scroll, click + drag to move, left/right arrows, and double-click to reset view to default
+	- Save/Load data to disk dynamically for large runtimes (to avoid running out of memory) 
+		- only if memory use becomes an issue, profile later

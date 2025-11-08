@@ -18,7 +18,7 @@ DEMUX_5 = 4
 
 def main():
 
-    DEMUXES = [DEMUX_0]
+    DEMUXES = [DEMUX_0, DEMUX_1, DEMUX_2, DEMUX_3, DEMUX_4, DEMUX_5]
     tempSensors = controllerBoard(SELECT, DEMUXES, ADC_PIN)
 
     print(json.dumps({"status": "Pico ready"}))

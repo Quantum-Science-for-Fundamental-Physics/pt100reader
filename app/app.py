@@ -12,12 +12,15 @@ import time
 # TODO: 
 # --> add real time graph that updates temp data from pico!
 #     |--> implement some way to pause until values is recieved from pico
-# -->Calibration!
+# --> Calibration!
 
 NUM_SENSORS = 8
 # standard PT100 (IEC 60751 Class B) constant:
 ALPHA = 0.00385 #ohms/degree celsius
 VREF = 3.3         # volts
+IREF = 0.00215 #Amp. Measure this!
+WIRE_RESISTANCE = 0.5 #ohms
+
 
 class PicoApp(QWidget):
     def __init__(self):
@@ -97,7 +100,12 @@ class PicoApp(QWidget):
         self.log.append(f"<< {json.dumps(msg)}")
         print(msg)
         if type(msg.get("temp_values", "")) == list:
-            self.__last_measured_temps[0] = (((msg.get("temp_values", "")[0] / 65535) * VREF ) - 100)/ALPHA
+            measuredVoltage = (msg.get("temp_values", "")[0] / 65535) * VREF
+            print(f"Measured Voltage: {measuredVoltage}")
+            measuredResistance = ( measuredVoltage / IREF )
+            print(f"Measured Resistance: {measuredResistance}")
+
+            self.__last_measured_temps[0] = (measuredResistance - WIRE_RESISTANCE - 100)/(ALPHA * 10**2)
             print(self.__last_measured_temps[0])
 
     def closeEvent(self, event):

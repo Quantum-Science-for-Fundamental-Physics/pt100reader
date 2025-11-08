@@ -5,7 +5,8 @@ import math
 import json
 
 CHANNELS = 8
-MEASUREMENTS_PER_MEASUREMENT = 75
+MEASUREMENTS_PER_MEASUREMENT = 200
+VOLTAGE_STEADY_STATE_TIME = 0.0001
 
 class controllerBoard:
     def __init__(self, select, demuxes, adcPin):
@@ -72,7 +73,7 @@ class controllerBoard:
         self.select_channel(index % CHANNELS)
 
         #Wait for voltage to stabilize
-        utime.sleep(0.01)
+        utime.sleep(VOLTAGE_STEADY_STATE_TIME)
 
         #Read input
         input = self.take_measurement()

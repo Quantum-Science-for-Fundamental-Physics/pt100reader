@@ -85,6 +85,7 @@ Features to implement:
 - Functional
 	- Display actual temp, not 16-bit adc input
 	- interpolation/smoothing/noise reduction
+	- !!!! FILTERING! (Kalman filter?) The noise is very structured. !!!
 - GUI Aesthetic
 	- Colors (orange/blue) graphs, shading under curve
 	- darkmode
@@ -100,6 +101,6 @@ Features to implement:
 	- Choose name of data spreadsheet + auto generate one based on date + time
 	- Save data on dedicated database (Lab Pi)
 - GUI Mechanics
-	- Allow ablity to click to select graph, mouse wheel to scroll, click + drag to move, left/right arrows, and double-click to reset view to default
+	- Allow ablity to click to select graph, left/right arrows, and double-click to reset view to default
 	- Save/Load data to disk dynamically for large runtimes (to avoid running out of memory) 
 		- only if memory use becomes an issue, profile later

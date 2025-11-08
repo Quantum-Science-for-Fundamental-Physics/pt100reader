@@ -9,12 +9,18 @@ class SerialReader(QThread):
     def __init__(self, port, baud=115200):
         super().__init__()
         self.ser = serial.Serial(port, baud, timeout=1)
+        self.ser.flush()
         self.running = True
 
     def run(self):
         while self.running:
             if self.ser.in_waiting:
-                line = self.ser.readline().decode(errors='ignore').strip()
+                while True:
+                    try:
+                        line = self.ser.readline().decode(errors='ignore').strip()
+                        break
+                    except serial.SerialException as e:
+                        print(f"Serial exception: {e}")
                 if not line:
                     continue
                 try:

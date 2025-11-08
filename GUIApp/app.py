@@ -47,7 +47,7 @@ class PicoApp(QWidget):
         self.ydata = np.zeros(1000)
 
         #Temporary! Remove!
-        self.plot_widget.setXRange(5000, 5500)
+        self.plot_widget.setYRange(5000, 5500)
 
         # Timer to update the graph
         self.timer = QTimer()

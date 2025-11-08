@@ -3,7 +3,6 @@ import numpy as np
 from PyQt6 import QtWidgets, QtCore
 import pyqtgraph as pg
 
-
 class RealTimePlot(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -31,14 +30,11 @@ class RealTimePlot(QtWidgets.QMainWindow):
 
         self.phase = 0
 
-    def update_plot(self):
-        # Generate new data (for example purposes)
-        self.phase += 0.1
-        new_val = np.sin(self.phase)
+    def update_plot(self, data):
 
         # Shift data left and append new value
         self.ydata = np.roll(self.ydata, -1)
-        self.ydata[-1] = new_val
+        self.ydata[-1] = data
 
         # Update the curve
         self.curve.setData(self.xdata, self.ydata)

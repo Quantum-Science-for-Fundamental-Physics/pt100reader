@@ -8,6 +8,7 @@ from Helper import *
 import pyqtgraph as pg
 import numpy as np
 import time
+import qdarktheme
 
 # TODO: 
 # --> add real time graph that updates temp data from pico!
@@ -27,6 +28,12 @@ class PicoApp(QWidget):
         super().__init__()
         self.__last_measured_temps = np.zeros((NUM_SENSORS))
 
+        #make this a setting later. default to dark 
+        self.setStyleSheet(qdarktheme.load_stylesheet())
+        
+        #Find a nice font?
+        #self.setStyleSheet("font-family: 'Helvetica'")
+
         self.setWindowTitle("Pico JSON Serial Interface")
 
         layout = QVBoxLayout()
@@ -38,14 +45,17 @@ class PicoApp(QWidget):
         layout.addWidget(self.log)
 
         #real time graph widget
-        self.plot_widget = pg.PlotWidget(background='w')
+
+        #if dark mode, background black
+        self.plot_widget = pg.PlotWidget(background='#191919') # #121212 is good. #1f1e1e is good but very subtle.
         layout.addWidget(self.plot_widget)
 
         #the actual line on the graph
         pen = pg.mkPen(color=(0, 100, 255), width=2)
-        self.curve = self.plot_widget.plot(pen=pen)
+        brush = pg.mkBrush(color=(0, 0, 139, 100))
+        self.curve = self.plot_widget.plot(pen=pen, brush=brush)
         self.plot_widget.showGrid(x=True, y=True)
-        self.plot_widget.setLabel('left', 'Value')
+        self.plot_widget.setLabel('left', 'Temp (\u00b0C)')
         self.plot_widget.setLabel('bottom', 'Time')
 
         # Data buffer
@@ -124,9 +134,12 @@ class PicoApp(QWidget):
 
         # Update the curve
         self.curve.setData(self.xdata, self.ydata)
+        # Shade underneath curve
+        self.curve.setFillLevel(0)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = PicoApp()
     window.show()
     sys.exit(app.exec())
+ 

@@ -1,1 +1,4 @@
 __pycache__
+./app/__pycache__
+pt100dev_env/
+RPI_PICO2-20250911-v1.26.1.uf2

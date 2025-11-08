@@ -15,6 +15,9 @@ import time
 # -->Calibration!
 
 NUM_SENSORS = 8
+# standard PT100 (IEC 60751 Class B) constant:
+ALPHA = 0.00385 #ohms/degree celsius
+VREF = 3.3         # volts
 
 class PicoApp(QWidget):
     def __init__(self):
@@ -47,8 +50,7 @@ class PicoApp(QWidget):
         self.ydata = np.zeros(1000)
 
         #Temporary! Remove!
-        #(5150, 5250) is resonable
-        self.plot_widget.setYRange(5000, 5400)
+        #self.plot_widget.setYRange(5000, 5400)
 
         # Timer to update the graph
         self.timer = QTimer()
@@ -95,7 +97,8 @@ class PicoApp(QWidget):
         self.log.append(f"<< {json.dumps(msg)}")
         print(msg)
         if type(msg.get("temp_values", "")) == list:
-            self.__last_measured_temps[0] = msg.get("temp_values", "")[0]
+            self.__last_measured_temps[0] = (((msg.get("temp_values", "")[0] / 65535) * VREF ) - 100)/ALPHA
+            print(self.__last_measured_temps[0])
 
     def closeEvent(self, event):
         if hasattr(self, 'serial_thread'):

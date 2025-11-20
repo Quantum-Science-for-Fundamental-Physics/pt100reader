@@ -37,8 +37,8 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MyApp-mac
-          path: dist_archive/MyApp-mac.zip
+          name: pt100Controller
+          path: dist_archive/pt100Controller.zip
 
   build-windows:
     runs-on: windows-latest
@@ -65,5 +65,5 @@ jobs:
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MyApp-win
-          path: dist_archive/my_program.exe
+          name: pt100Controller
+          path: dist_archive/pt100Controller.exe

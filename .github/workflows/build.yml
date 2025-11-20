@@ -58,7 +58,7 @@ jobs:
 
       - name: Build Windows executable
         run: |
-          pyinstaller --onefile --windowed my_program.py
+          pyinstaller --onefile --windowed app/MainWindow.py
           mkdir dist_archive
           copy dist\pt100Controller.exe dist_archive\
 

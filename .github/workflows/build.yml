@@ -60,7 +60,7 @@ jobs:
         run: |
           pyinstaller --onefile --windowed app/MainWindow.py
           mkdir dist_archive
-          mv dist\MainWindow.py dist\pt100Controller.exe
+          mv dist\MainWindow.exe dist\pt100Controller.exe
           copy dist\pt100Controller.exe dist_archive\
 
       - name: Upload Windows artifact

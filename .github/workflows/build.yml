@@ -35,7 +35,7 @@ jobs:
           zip -r MyApp-mac.zip *.app
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MyApp-mac
           path: dist_archive/MyApp-mac.zip
@@ -63,7 +63,7 @@ jobs:
           copy dist\my_program.exe dist_archive\
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MyApp-win
           path: dist_archive/my_program.exe

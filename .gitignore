@@ -3,3 +3,4 @@ __pycache__
 pt100dev_env/
 RPI_PICO2-20250911-v1.26.1.uf2
 
+pt100_controller_config/.settings.ini.swp

@@ -64,7 +64,7 @@ class RealTimeGraph(QWidget):
         self.combo = CheckableComboBox()
         for style in ["Orange", "Blue", "Green"]:
             self.combo.addItem(style)
-        self.layout.addWidget(self.combo)
+        #self.layout.addWidget(self.combo)
 
         self.curve = self.plot_widget.plot(pen=pen, brush=brush)
         self.plot_widget.showGrid(x=True, y=True)
@@ -128,17 +128,8 @@ class RealTimeGraph(QWidget):
         self.ydata = np.roll(self.ydata, -1)
         self.ydata[-1] = self.next_data
 
-        # Low-pass filter parameters
-        fs = 1000  # sampling frequency in Hz
-        fc = 10    # cutoff frequency in Hz
-        order = 4  # filter order
-
-        # Design Butterworth filter
-        b, a = sp.signal.butter(order, fc / (fs / 2), btype='low')  # Normalize by Nyquist frequency
-
-        # Apply filter (zero-phase)
-        self.ydata = sp.signal.filtfilt(b, a, self.ydata)
-        print(f"Current Temp:{self.ydata[-1]}")
+        # The initial data has a buffer of zeros in front. Our filter should not see this. 
+        # The filter should be initialized with the first avalible data.
 
         # Update the curve
         self.curve.setData(self.xdata, self.ydata)

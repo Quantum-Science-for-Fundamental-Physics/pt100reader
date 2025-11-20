@@ -4,7 +4,7 @@ import serial.tools.list_ports
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QTextEdit, QLabel
 from PyQt6.QtCore import QTimer, QSettings
 import json
-from SerialReader import *
+from pt100refactor.SerialReader import *
 import numpy as np
 import qdarktheme
 import Graph
@@ -34,9 +34,12 @@ WIRE_RESISTANCE = 0.5
 # --> Add "wire resistance vector"
 # --> Add "constant resistance vector"
 
+#Problem: gather_data should preceed update_graph (this isn't enforced in code). Gathering data should trigger an update plot.
+#Gathering data is the responsibility of picoApp, not the graph. 
+
 class PicoApp(QWidget):
     def __init__(self):
-        super().__init__()
+        super().__init__() 
         self.__last_measured_temps = np.zeros((NUM_SENSORS))
 
         if settings.value("user/theme") == "dark":
@@ -112,7 +115,6 @@ class PicoApp(QWidget):
         print(msg)
         if type(msg.get("temp_values", "")) == list:
             self.__last_measured_temps = PicoApp.convert_raw_to_temperature(np.array(msg.get("temp_values", "")))
-            #print(self.__last_measured_temps[0])
 
     def closeEvent(self, event):
         if hasattr(self, 'serial_thread'):

@@ -1,7 +1,7 @@
 # setup.py
 from setuptools import setup
 
-APP = ['MainWindow.py']
+APP = ['app/MainWindow.py']
 OPTIONS = {
     'argv_emulation': True,
     'iconfile': 'Phoebe.icns',  # optional

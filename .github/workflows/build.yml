@@ -32,7 +32,7 @@ jobs:
           mkdir -p dist_archive
           cp -R dist/*.app dist_archive/
           cd dist_archive
-          zip -r MyApp-mac.zip *.app
+          zip -r pt100Controller-mac.zip *.app
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
@@ -60,6 +60,7 @@ jobs:
         run: |
           pyinstaller --onefile --windowed app/MainWindow.py
           mkdir dist_archive
+          mv dist\MainWindow.py dist\pt100Controller.exe
           copy dist\pt100Controller.exe dist_archive\
 
       - name: Upload Windows artifact

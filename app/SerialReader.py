@@ -18,7 +18,7 @@ class SerialReader(QThread):
         while self.running:
             try:
                 self.send({"cmd": "TEMPS"})
-                time.sleep(0.1)
+                #time.sleep(0.1)
             except:
                 pass
             if self.ser.in_waiting:

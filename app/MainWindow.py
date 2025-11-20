@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
 
         for i in range(self.settings.get("hardware/NUM_SENSORS", type=int)):
             thread = QThread()
-            worker = DataWorker(sensor_id=i)
+            worker = DataWorker(i, self.settings, filter="lowpass")
             worker.moveToThread(thread)
             self.data_workers.append(worker)
             self.threads.append(thread)
@@ -157,9 +157,11 @@ class MainWindow(QMainWindow):
         else:
             print("Pico not found!")
 
+        dialog = SensorSettings(self.settings)
+        dialog.load_graphs()
+
         self.central.setLayout(layout)
         self.central.show()
-
 
     def add_data(self, value, sensor_id):
         """Receive new data from worker thread."""
@@ -196,10 +198,9 @@ class MainWindow(QMainWindow):
     
     def open_checkbox_dialog(self):
         dialog = SensorSettings(self.settings)
+        dialog.load_graphs()
         if dialog.exec():  # User pressed OK
-            selected = dialog.get_selected_items()
-            for i in range(self.settings.get("hardware/NUM_SENSORS", type=int)):
-                self.settings.set(f"hardware/temp_sensors/{i}", selected[i])
+            dialog.load_graphs()
         dialog.close()
         
 if __name__ == "__main__":

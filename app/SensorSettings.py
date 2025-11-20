@@ -36,3 +36,8 @@ class SensorSettings(QDialog):
     # Helper method to get selected items
     def get_selected_items(self):
         return [cb.isChecked() for cb in self.checkboxes]
+
+    def load_graphs(self):
+        selected = self.get_selected_items()
+        for i in range(self.settings.get("hardware/NUM_SENSORS", type=int)):
+            self.settings.set(f"hardware/temp_sensors/{i}", selected[i])

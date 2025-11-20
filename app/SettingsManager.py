@@ -17,7 +17,7 @@ class SettingsManager(QObject):
             open(config_file, "w").close()
             self._settings = QSettings(config_file, QSettings.Format.IniFormat)
             self._settings.setValue("hardware/NUM_SENSORS", 8)
-            self._settings.setValue("hardware/VREF", 3.3)
+            self._settings.setValue("hardware/VREF", 3.7) #3.3 V nominal
             self._settings.setValue("hardware/ALPHA", 0.00385)
             self._settings.setValue("hardware/IREF", 0.00215)
 

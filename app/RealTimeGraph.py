@@ -28,9 +28,18 @@ class RealTimeGraph(QWidget):
         self.xdata = np.linspace(0, 10, self.settings.get("gui/buffer_length", type=int))
         self.ydata = np.zeros(self.settings.get("gui/buffer_length", type=int))
 
-    def add_data(self, value):
-        self.ydata = np.roll(self.ydata, -1)
-        self.ydata[-1] = value
+    def add_data(self, data):
+        #self.ydata = np.roll(self.ydata, -1)
+        #self.ydata[-1] = value
+
+        data = np.array(data)
+        print(len(data))
+        if len(data) < self.settings.get("gui/buffer_length", type=int):
+            self.ydata = np.zeros(self.settings.get("gui/buffer_length", type=int) - len(data))
+            self.ydata = np.concatenate((self.ydata, data))
+        else:
+            self.ydata = data
+        #if ydata too big, start rolling.
 
     def update_plot(self):
         # Update the curve

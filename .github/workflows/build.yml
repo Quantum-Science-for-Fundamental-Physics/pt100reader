@@ -60,7 +60,7 @@ jobs:
         run: |
           pyinstaller --onefile --windowed my_program.py
           mkdir dist_archive
-          copy dist\my_program.exe dist_archive\
+          copy dist\pt100Controller.exe dist_archive\
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4

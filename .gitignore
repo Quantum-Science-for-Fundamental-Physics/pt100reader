@@ -4,5 +4,4 @@ pt100dev_env/
 build/
 pt100_controller_config/
 pt100Controller.spec
-Phoebe.icns
 dist

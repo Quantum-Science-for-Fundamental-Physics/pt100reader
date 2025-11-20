@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pt100Controller
-          path: dist_archive/pt100Controller.zip
+          path: dist_archive/pt100Controller-mac.zip
 
   build-windows:
     runs-on: windows-latest

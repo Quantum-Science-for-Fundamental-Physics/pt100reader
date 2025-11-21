@@ -27,6 +27,7 @@ class SettingsManager(QObject):
             self._settings.setValue("gui/display_log", False)
             self._settings.setValue("gui/display_connection_status", False)
             self._settings.setValue("gui/buffer_length", 1000)
+            self._settings.setValue("gui/graph_update_rate", 50) #50 = 20 fps
 
             for i in range(self.get("hardware/NUM_SENSORS")):
                 self._settings.setValue(f"hardware/temp_sensors/{i}", True)

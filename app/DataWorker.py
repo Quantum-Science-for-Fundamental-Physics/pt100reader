@@ -1,8 +1,6 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 import time
-import random
 from scipy.signal import butter, filtfilt
-
 
 class DataWorker(QObject):
     '''This class handles storing and real time filtering the data acquired by Serial Reader'''
@@ -22,8 +20,7 @@ class DataWorker(QObject):
         self.ALPHA = settings.get("hardware/ALPHA", type=float)
         self.WIRE_RESISTANCE = 0.5
 
-
-
+    #This should really be in RealTimeGraph.
     def lowpass_filter(self, data, cutoff, fs, order=5):
         """
         Apply a low-pass Butterworth filter.
@@ -48,7 +45,7 @@ class DataWorker(QObject):
         measuredResistance = ( measuredVoltage / self.IREF )
         return (measuredResistance - self.WIRE_RESISTANCE - 100)/(self.ALPHA * 10**2)
 
-    def set_interval(self, filter):
+    def update_settings(self, filter):
         self.filter = filter  # called when settings change
     
     def handle_data(self, values):

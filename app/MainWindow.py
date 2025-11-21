@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
          # Timer to refresh graphs
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_graphs)
-        self.timer.start(50)  # 20 FPS
+        self.timer.start(self.settings.get("gui/graph_update_rate", type=int))  # 20 FPS
 
          # ---- Scroll Area ----
         scroll = QScrollArea()
